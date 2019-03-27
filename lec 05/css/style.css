@@ -6,13 +6,15 @@ https://www.toptal.com/designers/subtlepatterns/
 https://specificity.keegan.st/
 https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Cascade_and_inheritance
 */
-
+/*
 body {
     background-image: url(../images/crossline-lines.png);
     /*background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;*/
+    background-position: center;
 }
+*/
+
 h1 {
     color: #3C2B74;
     text-align: center;
@@ -25,6 +27,16 @@ h1 {
 header li {
     list-style: none;
     display: inline-block;
+}
+
+.img
+{
+    cursor: pointer;
+}
+.img:hover{
+    box-shadow: 10px 10px chartreuse;
+    border: 10px solid #b9b2b2;
+    border-radius: 25px;
 }
 
 /*
