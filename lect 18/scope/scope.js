@@ -10,7 +10,6 @@ function bb() {
 }
 
 console.log(a); // a is not defined
-
 //---------------------------------------------
 
 
