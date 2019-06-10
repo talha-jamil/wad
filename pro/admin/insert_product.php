@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-$con = mysqli_connect("localhost","root","","techboxdb");
+$con = mysqli_connect("localhost","root","","tech_box_db");
 if(!$con)
     die("Connection failed");
 ?>
@@ -14,11 +14,14 @@ if(isset($_POST['insert_pro'])){
     $pro_price = $_POST['pro_price'];
     $pro_desc = $_POST['pro_desc'];
     $pro_keywords = $_POST['pro_keywords'];
+    $pro_img = $_FILES['pro_image']['name'];
+    $tmp_img = $_FILES['pro_image']['tmp_name'];
+    move_uploaded_file($tmp_img,"product_images/".time().$pro_img);
 
 
 
-    $insert_product = "insert into products (pro_cat, pro_brand,pro_title,pro_price,pro_detail,pro_img,pro_key) 
-                  VALUES ('$pro_cat','$pro_brand','$pro_title','$pro_price','$pro_desc','$pro_keywords');";
+    $insert_product = "insert into products (pro_cat, pro_brand,pro_title,pro_price,pro_desc,pro_keywords,pro_image) 
+                  VALUES ('$pro_cat','$pro_brand','$pro_title','$pro_price','$pro_desc','$pro_keywords','$pro_img');";
     $insert_pro = mysqli_query($con, $insert_product);
     if($insert_pro){
         header("location: ".$_SERVER['PHP_SELF']);
@@ -44,7 +47,7 @@ if(isset($_POST['insert_pro'])){
 <div class="container-fluid">
     <h1 class="text-center my-4"><i class="fas fa-plus fa-md"></i> <span class="d-none d-sm-inline"> Add New </span>
         Product </h1>
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="d-none d-sm-block col-sm-3 col-md-4 col-lg-2 col-xl-2 mt-auto">
                 <label for="pro_title" class="float-md-right"> <span class="d-sm-none d-md-inline"> Product </span>
@@ -74,8 +77,8 @@ if(isset($_POST['insert_pro'])){
                             $getCatsQuery = "select * from categories";
                             $getCatsResult = mysqli_query($con,$getCatsQuery);
                             while($row = mysqli_fetch_assoc($getCatsResult)){
-                                $cat_id = $row['category_id'];
-                                $cat_title = $row['category_title'];
+                                $cat_id = $row['cat_id'];
+                                $cat_title = $row['cat_title'];
                                 echo "<option value='$cat_id'>$cat_title</option>";
                             }
                         ?>
@@ -100,7 +103,7 @@ if(isset($_POST['insert_pro'])){
                             $getBrandsResult = mysqli_query($con,$getBrandsQuery);
                             while($row = mysqli_fetch_assoc($getBrandsResult)){
                                 $brand_id = $row['brand_id'];
-                                $brand_title = $row['brand_name'];
+                                $brand_title = $row['brand_title'];
                                 echo "<option value='$brand_id'>$brand_title</option>";
                             }
                             ?>

@@ -112,7 +112,19 @@ $con = mysqli_connect("localhost","root","","tech_box_db");
     <article id="content" class="container-fluid bg-white">
 
         <div class="row">
-                Coming Soon
+            <?php
+            echo "<table border = \"1 solid\" bgcolor=\"lightgrey\"> <tr><th>Name</th><th>Price</th></tr>";
+            $getCatsQuery = "select pro_title,pro_price from products";
+            $getCatsResult = mysqli_query($con,$getCatsQuery);
+            while($row = mysqli_fetch_assoc($getCatsResult)){
+                $pro_t = $row['pro_title'];
+                $pro_p = $row['pro_price'];
+                echo "<tr>";
+                echo "<td>$pro_t</td><td>$pro_p</td>";
+                echo "</tr>";
+            }
+            echo "</table>";
+            ?>
         </div>
     </article>
 
