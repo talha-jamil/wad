@@ -1,4 +1,22 @@
 <!DOCTYPE html>
+
+<?php
+
+$con=mysqli_connect("localhost","root","","techboxdb");
+if(isset($_POST['insert_pro'])) {
+    $title = $_POST['pro_title'];
+    $category = $_POST['pro_cat'];
+    $brand = $_POST['pro_brand'];
+    $keyword = $_POST['pro_keywords'];
+    $desc = $_POST['pro_desc'];
+    $price = $_POST['pro_price'];
+
+    $q="insert into products(pro_title,pro_cat,pro_brand,pro_detail,pro_key,pro_price) values ('$title','$category','$brand','$desc','$keyword','$price')";
+    mysqli_query($con,$q);
+}
+?>
+
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,16 +38,16 @@
         Product </h1>
     <form action="" method="post" enctype="multipart/form-data">
         <div class="row">
-            <div class="d-none d-sm-block col-sm-3 col-md-4 col-lg-2 col-xl-2 mt-auto">
-                <label for="pro_title" class="float-md-right"> <span class="d-sm-none d-md-inline"> Product </span>
-                    Title:</label>
-            </div>
+                <div class="d-none d-sm-block col-sm-3 col-md-4 col-lg-2 col-xl-2 mt-auto">
+                    <label for="pro_title" class="float-md-right"> <span class="d-sm-none d-md-inline"> Product </span>
+                        Title:</label>
+                </div>
             <div class="col-sm-9 col-md-8 col-lg-4 col-xl-4">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-file-signature"></i></div>
                     </div>
-                    <input type="text" class="form-control" id="pro_title" name="pro_title"
+                         <input type="text" class="form-control" id="pro_title" name="pro_title"
                            placeholder="Enter Product Title">
                 </div>
             </div>
@@ -44,6 +62,15 @@
                     </div>
                     <select class="form-control" id="pro_cat" name="pro_cat">
                         <option>Select Category</option>
+                        <?php
+                        $catquery = "select * from categories";
+                        $result=mysqli_query($con,$catquery);
+                        while($row=mysqli_fetch_assoc($result))
+                        {
+                            $title=$row['category_title'];
+                            echo '<option value="$category_id">'.$title.'</option>';
+                        }
+                        ?>
                     </select>
                 </div>
             </div>
@@ -60,6 +87,15 @@
                     </div>
                     <select class="form-control" id="pro_brand" name="pro_brand">
                         <option>Select Brand</option>
+                        <?php
+                        $query = "select * from brands";
+                        $res=mysqli_query($con,$query);
+                        while($row=mysqli_fetch_assoc($res))
+                        {
+                            $r=$row['brand_name'];
+                            echo '<option value="brand_id">'.$r.'</option>';
+                        }
+                        ?>
                     </select>
                 </div>
             </div>
